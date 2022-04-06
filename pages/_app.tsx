@@ -2,6 +2,8 @@ import "../styles/globals.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import PlayerLayout from "../components/PlayerLayout";
 
+//This is the entry to our application, thanks to Next.js
+
 const theme = extendTheme({
   colors: {
     gray: {
