@@ -5,28 +5,10 @@ import { artistsData } from "./songsData";
 const prisma = new PrismaClient();
 
 const run = async () => {
-  await Promise.all(
-    artistsData.map(async (artist) => {
-      return prisma.artist.upsert({
-        where: { name: artist.name },
-        update: {},
-        create: {
-          name: artist.name,
-          songs: {
-            create: artist.songs.map((song) => ({
-              name: song.name,
-              duration: song.duration,
-              url: song.url,
-            })),
-          },
-        },
-      }); //upsert = create or update
-    })
-  );
 
   const salt = bcrypt.genSaltSync();
 
-  const user = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: "user@test.com" },
     update: {},
     create: {
@@ -34,27 +16,6 @@ const run = async () => {
       password: bcrypt.hashSync("password", salt),
     },
   });
-
-  const songs = await prisma.song.findMany({});
-
-  await Promise.all(
-    new Array(10).fill(1).map(async (_, i) => {
-      return prisma.playlist.create({
-        data: {
-          name: `Playlist #${i + 1}`,
-          // userId: user.id, (this is what might work)
-          user: {
-            connect: { id: user.id }, // this is what the docs recommend
-          },
-          songs: {
-            connect: songs.map((song) => ({
-              id: song.id,
-            })),
-          },
-        },
-      });
-    })
-  );
 
 };
 
