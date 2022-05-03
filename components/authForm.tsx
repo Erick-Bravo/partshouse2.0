@@ -14,16 +14,18 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    await auth(mode, { email, password })
+
+    await auth(mode, { email, password });
     setIsLoading(false);
     router.push("/");
   };
 
   return (
-    <Box height="100vh" width="100vw" bg="gray.900">
+    <Box height="100vh" width="100vw" bgGradient="linear(#006CBB, #F0ABD8)">
       <Flex justify="center" align="center" height="100px">
-        <NextImage src="/logo.svg" width={60} height={60} />
+        <Box marginTop={40}>
+          <NextImage src="/logo.png" width={160} height={160} />
+        </Box>
       </Flex>
       <Flex justify="center" align="center" height="calc(100vh - 100px)">
         <Box padding="50px" bg="white" borderRadius="12px">

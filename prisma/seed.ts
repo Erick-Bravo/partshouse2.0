@@ -16,7 +16,6 @@ const run = async () => {
       password: bcrypt.hashSync("password", salt),
     },
   });
-
 };
 
 run()

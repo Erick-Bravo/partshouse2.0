@@ -11,7 +11,7 @@ import NextImage from "next/image";
 import TopSection from "./sideBarComps/TopSection";
 import NextLink from "next/link";
 import { usePlaylist } from "../lib/hooks";
-//this is used instead of the a tage. a tags use serverside rendering. this is client side.
+//this is used instead of the a tag. a tags use serverside rendering. this is client side.
 
 const playlists = new Array(30).fill(1);
 
@@ -28,9 +28,10 @@ const SideBar = () => {
       paddingX="5px"
       color="gray.400"
     >
+      <Box>TOP OF SIDEBAR</Box>
       <Box paddingY="20px" height="100%">
         <Box width="120px" marginBottom="20px" padding="20px">
-          <NextImage src="/logo.svg" height={60} width={120} />
+          <NextImage src="/logo.png" height={60} width={120} />
         </Box>
 
         <TopSection />
@@ -49,6 +50,7 @@ const SideBar = () => {
               </ListItem>
             ))}
           </List>
+          <Box>BOTTOM OF SIDEBAR</Box>
         </Box>
       </Box>
     </Box>
