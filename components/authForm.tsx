@@ -1,4 +1,5 @@
-import { Box, Flex, Input, Button } from "@chakra-ui/react";
+import { Box, Flex, Input, Button, Text, Center } from "@chakra-ui/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { useSWRConfig } from "swr"; //handles caching and optimistic update
@@ -28,31 +29,46 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
         </Box>
       </Flex>
       <Flex justify="center" align="center" height="calc(100vh - 100px)">
-        <Box padding="50px" bg="white" borderRadius="12px">
+        <Box padding="50px" bg="white" borderRadius="12px" margin="5px">
+          <Text align="center" fontSize="2xl">
+            {mode === "signin" ? "Sign In" : "Create Account"}
+          </Text>
           <form onSubmit={handleSubmit}>
             <Input
               placeholder="email"
               type="email"
               onChange={(e) => setEmail(e.target.value)}
+              marginTop="10px"
             />
             <Input
               placeholder="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
+              marginTop="15px"
             />
-            <Button
-              type="submit"
-              bg="green.400"
-              isLoading={isLoading}
-              sx={{
-                textColor: "white",
-                "&:hover": {
-                  bg: "green.300",
-                },
-              }}
-            >
-              {mode}
-            </Button>
+            <Flex>
+              <Button
+                type="submit"
+                width="80px"
+                bg="green.400"
+                isLoading={isLoading}
+                sx={{
+                  textColor: "white",
+                  "&:hover": {
+                    bg: "green.300",
+                  },
+                }}
+                marginTop="15px"
+                marginRight="20px"
+              >
+                {mode}
+              </Button>
+              <Center color="teal.400" paddingTop="20px" fontSize="small" h="50">
+                <Link href={mode === "signin" ? "/signup" : "/signin"}>
+                  {mode === "signin" ? "Create Account" : "Sign In"}
+                </Link>
+              </Center>
+            </Flex>
           </form>
         </Box>
       </Flex>
