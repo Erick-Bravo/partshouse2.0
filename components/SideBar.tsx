@@ -10,7 +10,6 @@ import {
 import NextImage from "next/image";
 import TopSection from "./sideBarComps/TopSection";
 import NextLink from "next/link";
-import { usePlaylist } from "../lib/hooks";
 //this is used instead of the a tag. a tags use serverside rendering. this is client side.
 
 const playlists = new Array(30).fill(1);
@@ -18,7 +17,7 @@ const playlists = new Array(30).fill(1);
 //remember, Boxes are just divs.
 const SideBar = () => {
 
-  const { playlist } = usePlaylist(); 
+  // const { playlist } = usePlaylist(); 
 
   return (
     <Box
@@ -40,15 +39,7 @@ const SideBar = () => {
 
         <Box height="calc(100vh - 405px)" overflowY="auto" paddingY="20px">
           <List spacing={2}>
-            {playlist.map((playlist) => (
-              <ListItem paddingX="20px" key={playlist.id}>
-                <LinkBox>
-                  <NextLink href="/" passHref>
-                    <LinkOverlay>{`${playlist.name}`}</LinkOverlay>
-                  </NextLink>
-                </LinkBox>
-              </ListItem>
-            ))}
+
           </List>
           <Box>BOTTOM OF SIDEBAR</Box>
         </Box>
