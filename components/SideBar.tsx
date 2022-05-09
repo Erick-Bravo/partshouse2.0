@@ -22,27 +22,19 @@ const SideBar = () => {
   return (
     <Box
       width="100%"
-      height="calc(100vh - 100px)"
+      height="100vh"
       bg="black"
-      paddingX="5px"
       color="gray.400"
     >
-      <Box>TOP OF SIDEBAR</Box>
       <Box paddingY="20px" height="100%">
         <Box width="120px" marginBottom="20px" padding="20px">
-          <NextImage src="/logo.png" height={60} width={120} />
+          <NextImage src="/logo.png" height={120} width={120} />
         </Box>
 
         <TopSection />
 
         <Divider borderColor="gray.800" marginTop="10px" />
 
-        <Box height="calc(100vh - 405px)" overflowY="auto" paddingY="20px">
-          <List spacing={2}>
-
-          </List>
-          <Box>BOTTOM OF SIDEBAR</Box>
-        </Box>
       </Box>
     </Box>
   );

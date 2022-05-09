@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { Box, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import AppLayout from "../components/AppLayout";
 
 //This is the entry to our application, thanks to Next.js
@@ -38,9 +38,11 @@ const MyApp = ({ Component, pageProps }) => {
       {Component.authPage ? (
         <Component {...pageProps} />
       ) : (
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
+        <Box>
+          <AppLayout>
+            <Component {...pageProps} />
+          </AppLayout>
+        </Box>
       )}
     </ChakraProvider>
   );
