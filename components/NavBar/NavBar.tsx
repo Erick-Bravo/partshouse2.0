@@ -1,18 +1,4 @@
 import {
-  Box,
-  Center,
-  Divider,
-  Grid,
-  GridItem,
-  LinkBox,
-  LinkOverlay,
-  List,
-  ListItem,
-  Spacer,
-  Square,
-} from "@chakra-ui/layout";
-
-import {
   useColorMode,
   Switch,
   Flex,
@@ -22,7 +8,6 @@ import {
 
 import NextImage from "next/image";
 import NextLink from "next/link";
-import { MdSupervisorAccount } from "react-icons/md";
 import { useState } from "react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 
@@ -31,9 +16,6 @@ const NavBar = () => {
   const isDark = colorMode === "dark";
 
   const [display, changeDisplay] = useState("none");
-
-
-  const edgeSquareWidth = "300px";
 
   return (
     <Flex>
@@ -119,30 +101,6 @@ const NavBar = () => {
       </Flex>
     </Flex>
   );
-
-  // return (
-  //   <Box width="100%" color="gray.400" boxShadow="md">
-  //     <Flex>
-  //       <Square padding="15px" border="2px">
-  //         <Box width={edgeSquareWidth} maxW={edgeSquareWidth}></Box>
-  //       </Square>
-  //       <Spacer />
-  //       <Center height="100%" width="500px" padding="15px" border="2px">
-  //         <NextImage src="/PartsHouse500px.png" height={60} width={60} />
-  //       </Center>
-  //       <Spacer />
-  //       <Square padding="15px" border="2px">
-  //         <Flex>
-  //           <Square>
-  //             <Box width={edgeSquareWidth} maxW={edgeSquareWidth}>
-  //               <UserMenu />
-  //             </Box>
-  //           </Square>
-  //         </Flex>
-  //       </Square>
-  //     </Flex>
-  //   </Box>
-  // );
 };
 
 export default NavBar;
