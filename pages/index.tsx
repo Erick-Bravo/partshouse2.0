@@ -1,8 +1,11 @@
+import { Box, Center, Text } from "@chakra-ui/layout"
 
 
 const Home = () => {
   return (
-     <div></div>
+     <Center>
+       <Text fontSize="5xl">HOME PAGE YO</Text>
+     </Center>
   )
 }
 

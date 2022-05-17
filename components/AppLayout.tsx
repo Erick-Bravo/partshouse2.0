@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/layout";
 import NextImage from "next/image";
-import NavBar from "./NavBar";
+import NavBar from "./NavBar/NavBar";
 
 const AppLayout = ({ children }) => {
   return (
