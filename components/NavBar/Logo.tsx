@@ -1,10 +1,10 @@
 import { Box, Center, Text } from "@chakra-ui/react";
 import NextImage from "next/image";
 
-const Logo = (props) => {
+const Logo = () => {
   return (
-    <Box {...props}>
-      <NextImage src="/PartsHouse500px.png" height={60} width={60} />
+    <Box>
+      <NextImage src="/PartsHouse500px.png" height={80} width={80} />
     </Box>
   );
 };
