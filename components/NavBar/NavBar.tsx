@@ -4,11 +4,15 @@ import {
   Flex,
   Button,
   IconButton,
+  Box,
+  Center,
 } from "@chakra-ui/react";
 
 import NextLink from "next/link";
 import { useState } from "react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import Logo from "./Logo";
+import { desktop, mobile, two } from "../../lib/styles";
 
 const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -17,48 +21,67 @@ const NavBar = () => {
   const [display, changeDisplay] = useState("none");
 
   return (
-    <Flex>
-      <Flex pos="fixed" top="1rem" right="1rem" align="center">
-        <Flex display={["none", "none", "flex", "flex"]}>
-          <NextLink href="/" passHref>
-            <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
-              Home
-            </Button>
-          </NextLink>
-
-          <NextLink href="/about" passHref>
-            <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
-              About
-            </Button>
-          </NextLink>
-
-          <NextLink href="/" passHref>
-            <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
-              Logout
-            </Button>
-          </NextLink>
+    <>
+      {/* Main */}
+      <Flex
+        pos="absolute"
+        top="0"
+        align="center"
+        w="100vw"
+        boxShadow="lg"
+        // border={two}
+        justifyContent="space-between"
+      >
+        <Flex px="30px">
+          <Logo />
         </Flex>
 
-        <IconButton
-          aria-label="Open Menu"
-          size="lg"
-          mr={2}
-          icon={<HamburgerIcon />}
-          display={["flex", "flex", "none", "none"]}
-          onClick={() => changeDisplay("flex")}
-        />
+        <Flex>
+          <Flex display={desktop} align="right">
+            <NextLink href="/" passHref>
+              <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
+                Home
+              </Button>
+            </NextLink>
 
-        <Switch
-          color="green"
-          isChecked={isDark}
-          onChange={toggleColorMode}
-          paddingLeft="10px"
-        />
+            <NextLink href="/about" passHref>
+              <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
+                About
+              </Button>
+            </NextLink>
+
+            <NextLink href="/" passHref>
+              <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
+                Logout
+              </Button>
+            </NextLink>
+
+            <Center>
+              <Switch
+                color="green"
+                isChecked={isDark}
+                onChange={toggleColorMode}
+                paddingLeft="10px"
+                paddingRight="20px"
+              />
+            </Center>
+          </Flex>
+
+          <IconButton
+            aria-label="Open Menu"
+            size="lg"
+            mr={2}
+            icon={<HamburgerIcon />}
+            display={mobile}
+            onClick={() => changeDisplay("flex")}
+          />
+        </Flex>
       </Flex>
 
+      {/* DropDown Menu */}
       <Flex
         w="100vw"
-        bgColor="gray.50"
+        // bgColor="gray.50"
         zIndex={20}
         h="100vh"
         pos="fixed"
@@ -68,7 +91,7 @@ const NavBar = () => {
         flexDir="column"
         display={display}
       >
-        <Flex justify="flex-end" >
+        <Flex justify="flex-end">
           <IconButton
             mt={2}
             mr={2}
@@ -78,6 +101,7 @@ const NavBar = () => {
             onClick={() => changeDisplay("none")}
           />
         </Flex>
+
         <Flex flexDir="column" align="center">
           <NextLink href="/" passHref>
             <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
@@ -86,19 +110,19 @@ const NavBar = () => {
           </NextLink>
 
           <NextLink href="/about" passHref>
-            <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
+            <Button as="a" variant="ghost" aria-label="About" my="5" w="100%">
               About
             </Button>
           </NextLink>
 
           <NextLink href="/" passHref>
-            <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
+            <Button as="a" variant="ghost" aria-label="Logout" my="5" w="100%">
               Logout
             </Button>
           </NextLink>
         </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
 

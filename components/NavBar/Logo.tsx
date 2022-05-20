@@ -1,10 +1,13 @@
-import { Box, Center, Text } from "@chakra-ui/react";
-import NextImage from "next/image";
+import { Box, Center } from "@chakra-ui/react";
+import Image from "next/image";
+import { desktop, mobile } from "../../lib/styles";
 
 const Logo = () => {
   return (
     <Box>
-      <NextImage src="/PartsHouse500px.png" height={80} width={80} />
+      <Center>
+        <Image src="/textLogo.png" height="63.53px" width="300px"/>
+      </Center>
     </Box>
   );
 };

@@ -1,12 +1,12 @@
-import { Box, Center, Text } from "@chakra-ui/layout"
+import { Box, Center, Flex, Text } from "@chakra-ui/layout"
 import Logo from "../components/NavBar/Logo"
 
 
 const Home = () => {
   return (
-     <Center mt="20">
-       <Logo />
-     </Center>
+     <Flex height="100vh" justify="center" pt="100px"> 
+       Home
+     </Flex>
   )
 }
 
