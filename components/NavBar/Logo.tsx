@@ -1,12 +1,12 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { desktop, mobile } from "../../lib/styles";
 
 const Logo = () => {
   return (
     <Box>
-      <Center>
-        <Image src="/textLogo.png" height="63.53px" width="300px"/>
+      <Center px="20px" >
+        <Image src="/textLogo.svg" height="88" width="325px" />
       </Center>
     </Box>
   );

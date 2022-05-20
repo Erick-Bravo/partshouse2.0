@@ -32,7 +32,7 @@ const NavBar = () => {
         // border={two}
         justifyContent="space-between"
       >
-        <Flex px="30px">
+        <Flex px="10px">
           <Logo />
         </Flex>
 
