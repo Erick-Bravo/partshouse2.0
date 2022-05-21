@@ -13,10 +13,11 @@ import { useState } from "react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Logo from "./Logo";
 import { desktop, mobile, two } from "../../lib/styles";
+import { GlobalMenuDropDown } from "../../lib/globalComponents";
 
 const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const isDark = colorMode === "dark";
+  // const isDark = colorMode === "dark";
 
   const [display, changeDisplay] = useState("none");
 
@@ -29,6 +30,7 @@ const NavBar = () => {
         align="center"
         w="100vw"
         boxShadow="lg"
+        bg="white"
         // border={two}
         justifyContent="space-between"
       >
@@ -37,7 +39,7 @@ const NavBar = () => {
         </Flex>
 
         <Flex>
-          <Flex display={desktop} align="right">
+          <Flex display={desktop} align="right" mx="20px">
             <NextLink href="/" passHref>
               <Button as="a" variant="ghost" aria-label="Home" my="5" w="100%">
                 Home
@@ -56,7 +58,7 @@ const NavBar = () => {
               </Button>
             </NextLink>
 
-            <Center>
+            {/* <Center>
               <Switch
                 color="green"
                 isChecked={isDark}
@@ -64,17 +66,20 @@ const NavBar = () => {
                 paddingLeft="10px"
                 paddingRight="20px"
               />
-            </Center>
+            </Center> */}
           </Flex>
 
-          <IconButton
+          {/* <IconButton
             aria-label="Open Menu"
             size="lg"
             mr={2}
             icon={<HamburgerIcon />}
             display={mobile}
             onClick={() => changeDisplay("flex")}
-          />
+          /> */}
+          <Box display={mobile} mx="25px">
+            <GlobalMenuDropDown />
+          </Box>
         </Flex>
       </Flex>
 
