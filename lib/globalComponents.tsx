@@ -1,16 +1,7 @@
-import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
   Center,
-  Input,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
+  Input
 } from "@chakra-ui/react";
 
 export const GlobalButton = ({ icon, text }) => {
@@ -38,22 +29,5 @@ export const GlobalInput = ({ placeholder, size, w, display }) => {
         bg="white"
       />
     </Center>
-  );
-};
-
-export const GlobalMenuDropDown = () => {
-  return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<HamburgerIcon />}>
-        Menu
-      </MenuButton>
-      <MenuList>
-        <MenuItem>Download</MenuItem>
-        <MenuItem>Create a Copy</MenuItem>
-        <MenuItem>Mark as Draft</MenuItem>
-        <MenuItem>Delete</MenuItem>
-        <MenuItem>Attend a Workshop</MenuItem>
-      </MenuList>
-    </Menu>
   );
 };
