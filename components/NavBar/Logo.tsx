@@ -1,14 +1,10 @@
-import { Box, Center, AspectRatio } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, Center, Text } from "@chakra-ui/react";
+import NextImage from "next/image";
 
 const Logo = () => {
   return (
     <Box>
-      <Center px="20px" >
-        <AspectRatio maxW="325px" ratio={45 / 1}>
-          <Image src="/textLogo.svg" height="400px" width="1500px" />
-        </AspectRatio>
-      </Center>
+      <NextImage src="/PartsHouse500px.png" height={80} width={80} />
     </Box>
   );
 };
