@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { artistsData } from "./songsData";
+
 
 const prisma = new PrismaClient();
 
@@ -16,7 +16,19 @@ const run = async () => {
       password: bcrypt.hashSync("password", salt),
     },
   });
+
+  await prisma.partshouse.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      id: 1,
+      name: "Home",
+      userId: 1
+    }
+  })
 };
+
+
 
 run()
   .catch((e) => {
