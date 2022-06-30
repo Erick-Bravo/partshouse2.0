@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { recordData } from "./seederData";
+import { recordData, partsData } from "./seederData";
 
 
 const prisma = new PrismaClient();
@@ -28,6 +28,28 @@ const run = async () => {
     }
   })
 
+  // await Promise.all(recordData.map(async(record) => {
+  //   return prisma.record.upsert({
+  //     where: { id: record.id },
+  //     update: {},
+  //     create: {
+  //       id: record.id,
+  //       name: record.name,
+  //       brand: record.brand,
+  //       icon: record.icon,
+  //       partsHouseId: record.partsHouseId,
+  //       parts: {
+  //         create: record.parts.map((part) => ({
+  //           id: part.id,
+  //           name: part.name,
+  //           brand: part.brand,
+  //           recordId: part.recordId,
+  //         })),
+  //       },               
+  //     },
+  //   })
+  // }))
+
   await Promise.all(recordData.map( async(record) => {
     return prisma.record.upsert({
       where: { id: record.id },
@@ -35,10 +57,22 @@ const run = async () => {
       create: {
         id: record.id,
         name: record.name,
-        // brand: record.brand,
+        brand: record.brand,
         icon: record.icon,
         partsHouseId: record.partsHouseId
+      }
+    })
+  }))
 
+  await Promise.all(partsData.map(async(part) => {
+    return prisma.part.upsert({
+      where: { id: part.id },
+      update: {},
+      create: {
+        id: part.id,
+        name: part.name,
+        brand: part.brand,
+        recordId: part.recordId
       }
     })
   }))

@@ -8,6 +8,8 @@ const recordType = {
   other: "other",
 };
 
+// RECORD
+
 export const recordData: {
   id: number;
   type: string;
@@ -105,13 +107,13 @@ export const recordData: {
         id: 7,
         name: "Bedroom Ceiling Fan Light Bulbs",
         brand: "GE",
-        recordId: 4,
+        recordId: 5,
       },
       {
         id: 8,
         name: "Bedroom Ceiling Fan Light Bulbs",
         brand: "GE",
-        recordId: 4,
+        recordId: 5,
       },
     ],
   },
@@ -198,5 +200,118 @@ export const recordData: {
         recordId: 8,
       },
     ],
+  },
+];
+
+//PARTS
+
+export const partsData: {
+  id: number;
+  name: string;
+  brand: string;
+  recordId: number;
+}[] = [
+  {
+    id: 1,
+    name: "Water Filter",
+    brand: "Frigidair",
+    recordId: 1,
+  },
+  {
+    id: 2,
+    name: "14x24x1 Air Filter",
+    brand: "",
+    recordId: 2,
+  },
+  {
+    id: 3,
+    name: "Geforce RTX 3070",
+    brand: "",
+    recordId: 3,
+  },
+  {
+    id: 4,
+    name: "16 gig RAM",
+    brand: "Corssair",
+    recordId: 3,
+  },
+  {
+    id: 5,
+    name: "Geforce RTX 3070",
+    brand: "",
+    recordId: 4,
+  },
+  {
+    id: 6,
+    name: "16 gig RAM",
+    brand: "Corssair",
+    recordId: 4,
+  },
+
+  {
+    id: 7,
+    name: "Bedroom Ceiling Fan Light Bulbs",
+    brand: "GE",
+    recordId: 5,
+  },
+  {
+    id: 8,
+    name: "Bedroom Ceiling Fan Light Bulbs",
+    brand: "GE",
+    recordId: 5,
+  },
+  {
+    id: 9,
+    name: "10inch Blade",
+    brand: "",
+    recordId: 6,
+  },
+  {
+    id: 10,
+    name: "13 in 1 Driver",
+    brand: "",
+    recordId: 7,
+  },
+  {
+    id: 11,
+    name: "10inch Blade",
+    brand: "",
+    recordId: 7,
+  },
+  {
+    id: 12,
+    name: "Woodworking Clamp",
+    brand: "Dewalt",
+    recordId: 7,
+  },
+  {
+    id: 13,
+    name: "Vitamin D3 5000cu",
+    brand: "",
+    recordId: 8,
+  },
+  {
+    id: 14,
+    name: "Omega-3 Oil",
+    brand: "",
+    recordId: 8,
+  },
+  {
+    id: 15,
+    name: "Magnesium",
+    brand: "",
+    recordId: 8,
+  },
+  {
+    id: 16,
+    name: "Multi-Vitamin Gummies",
+    brand: "",
+    recordId: 8,
+  },
+  {
+    id: 17,
+    name: "Chocolate Protein Meal Shake",
+    brand: "Kachava",
+    recordId: 8,
   },
 ];
