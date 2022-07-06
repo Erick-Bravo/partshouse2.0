@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { recordData, partsData } from "./seederData";
+import { partsHouseData, recordData, partsData } from "./seederData";
 
 
 const prisma = new PrismaClient();
@@ -18,15 +18,17 @@ const run = async () => {
     },
   });
 
-  await prisma.partshouse.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      id: 1,
-      name: "Home",
-      userId: 1
-    }
-  })
+  await Promise.all(partsHouseData.map(ph => {
+    return prisma.partshouse.upsert({
+      where: { id: ph.id },
+      update: {},
+      create: {
+        id: ph.id,
+        name: ph.name,
+        userId: ph.userId
+      }
+    })
+  }))
 
   // await Promise.all(recordData.map(async(record) => {
   //   return prisma.record.upsert({
