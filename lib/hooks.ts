@@ -3,11 +3,11 @@ import useSWR from "swr"; // fetches data and stores it locally, like redux woul
                           
 import fetcher from "./fetcher";
 
-export const useMe = () => {
-  const { data, error } = useSWR("/me", fetcher);
+export const useUser = () => {
+  const { data, error } = useSWR("/user", fetcher);
 
   return {
-    user: data,
+    userData: data,
     isLoading: !data && !error,
     isError: error,
   };

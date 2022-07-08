@@ -1,10 +1,10 @@
-import { CalendarIcon, SmallAddIcon } from "@chakra-ui/icons";
+import { CalendarIcon, PhoneIcon, SmallAddIcon } from "@chakra-ui/icons";
 import { Box, Center, Flex, Text } from "@chakra-ui/layout";
-import { Button, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { Button, Input, MenuList } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import RecordCard from "../components/RecordCard";
-import { GlobalButton, GlobalInput } from "../lib/globalComponents";
-import { usePartshouse } from "../lib/hooks";
+import { Lib_Button, Lib_Input } from "../lib/lib_components";
+import { useUser, usePartshouse } from "../lib/hooks";
 import prisma from "../lib/prisma";
 import { desktop, mobile } from "../lib/styles";
 
@@ -12,9 +12,36 @@ import { desktop, mobile } from "../lib/styles";
 // This came up when height="100vh" was changed to "100%"
 
 const Home = () => {
-  const { partshouse } = usePartshouse();
-  const { storePartsHouse, setPartshouse } = useState();
+  interface PartsHouseProps { 
+    id: number;
+    name: string;
+    userId: number;
+  }
 
+  const { userData } = useUser();
+  const [ currentPartsHouse, setPartsHouse ] = useState<undefined | PartsHouseProps>(userData.partsHouse[0]);
+
+  const menuLists = [];
+
+  useEffect(() => {
+    if (userData) {
+      userData.partsHouse.map(ph => {
+        const handleClick = () => {
+          setPartsHouse(ph)
+        }
+        return menuLists.push(<MenuList onClick={handleClick}>{ph.name}</MenuList>)
+      })
+    }
+  }, [userData])
+
+  // const menuList = [
+  //   userData.partsHouse.map(ph => {
+  //     return (
+  //       <MenuList>{ph.name}</MenuList>
+  //     )
+  //   })
+  // ]
+  console.log("MENULIST - " + `${userData !== undefined ? userData.partsHouse[0] : "nope"} `)
 
   return (
     <Flex bg="gray.200" height="100vh">
@@ -32,22 +59,22 @@ const Home = () => {
         <Box>
           {/* {tempParthouseDisplay} */}
         </Box>
-        <GlobalInput
+        {userData ? <Text>You are logged in as {userData.user.email}</Text> : "" }
+        <Lib_Input
           placeholder="Psuedo Record Search"
           size="lg"
           w="350px"
           display={desktop}
         />
-        <GlobalInput
+        <Lib_Input
           placeholder="Psuedo Record Search"
           size="md"
           w="280px"
           display={mobile}
         />
-        You are signed in as
         <Flex marginBottom="10px">
-          <GlobalButton icon={<SmallAddIcon />} text={"Add Record"} />
-          <GlobalButton icon={<CalendarIcon />} text={"Calendar"} />
+          <Lib_Button icon={<SmallAddIcon />} text={"Add Record"} />
+          <Lib_Button icon={<CalendarIcon />} text={"Calendar"} />
         </Flex>
         <RecordCard />
         <Box>{/* Why is this not overflowing */}</Box>
