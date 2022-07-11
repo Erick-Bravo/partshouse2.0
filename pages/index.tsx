@@ -27,28 +27,27 @@ const Home = () => {
   });
 
   const menuLists = [];
-  
+
   useEffect(() => {
-    
     if (userData) {
-      
       console.log("CurrentPH 1 - " + currentPartsHouse.name);
       setPartsHouse(userData.partsHouse[0]);
     }
   }, [userData]);
-  
-  console.log("CurrentPH 2 - " + currentPartsHouse.name);
-  console.log(
-    "MENULIST - " + `${userData ? menuLists : "nope"} `
-    );
-    
-    if (userData) {
-      userData.partsHouse.map((ph) => {
-        const handleClick = () => {
-          setPartsHouse(ph);
-        };
-        menuLists.push(<MenuList onClick={handleClick} key={ph.id}>{ph.name}</MenuList>)
-      });
+
+  console.log("MENULIST - " + `${userData ? menuLists : "nope"} `);
+
+  if (userData) {
+    userData.partsHouse.map((ph) => {
+      const handleClick = () => {
+        setPartsHouse(ph);
+      };
+      menuLists.push(
+        <MenuList onClick={handleClick} key={ph.id}>
+          {ph.name}
+        </MenuList>
+      );
+    });
   }
 
   return (
@@ -64,13 +63,14 @@ const Home = () => {
         bg="gray.200"
         overflow="auto"
       >
-        <Box>{/* {tempParthouseDisplay} */}</Box>
         {userData ? (
           <Text>You are logged in as {userData.user.email}</Text>
         ) : (
           ""
         )}
+
         <PartsHouseMenu partsHouse={currentPartsHouse} menuLists={menuLists} />
+
         <Lib_Input
           placeholder="Psuedo Record Search"
           size="lg"
@@ -83,12 +83,13 @@ const Home = () => {
           w="280px"
           display={mobile}
         />
+
         <Flex marginBottom="10px">
           <Lib_Button icon={<SmallAddIcon />} text={"Add Record"} />
           <Lib_Button icon={<CalendarIcon />} text={"Calendar"} />
         </Flex>
+
         <RecordCard />
-        <Box>{/* Why is this not overflowing */}</Box>
       </Flex>
     </Flex>
   );
