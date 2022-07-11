@@ -11,6 +11,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     where: {
       email,
     },
+    include: {
+      partsHouse: true
+    }
   });
 
   if (user && bcrypt.compareSync(password, user.password)) {
