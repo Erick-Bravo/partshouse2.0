@@ -1,32 +1,35 @@
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
-    Button,
-    Center,
-    Input,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
-    MenuDivider,
-  } from "@chakra-ui/react";
+  Button,
+  Center,
+  Input,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Box,
+} from "@chakra-ui/react";
+
+
+const PartsHouseMenu = ({ partsHouse, menuLists }) => {
+  return (
   
-  import { HamburgerIcon } from "@chakra-ui/icons";
-  
-  export const MenuDropDown = () => {
-    return (
-      <>
-        <Menu>
-          <MenuButton as={Button} rightIcon={<HamburgerIcon />}>
-            Menu
-          </MenuButton>
-          <MenuList>
-            <MenuItem>Home</MenuItem>
-            <MenuItem>Account</MenuItem>
-            <MenuItem>Logout</MenuItem>
-          </MenuList>
-        </Menu>
-      </>
-    );
-  };
+    <Box p="15px">
+      <Menu>
+        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>{partsHouse.name}</MenuButton>
+        <MenuList>
+          {menuLists.map((list) => {
+            return list;
+          })}
+        </MenuList>
+      </Menu>
+    </Box>
+
+  );
+};
+
+export default PartsHouseMenu

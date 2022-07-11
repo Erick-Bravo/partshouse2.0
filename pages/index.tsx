@@ -4,44 +4,52 @@ import { Button, Input, MenuList } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import RecordCard from "../components/RecordCard";
 import { Lib_Button, Lib_Input } from "../lib/lib_components";
-import { useUser, usePartshouse } from "../lib/hooks";
+import { useUser } from "../lib/hooks";
 import prisma from "../lib/prisma";
 import { desktop, mobile } from "../lib/styles";
+import PartsHouseMenu from "../components/MenuDropDowns/PartsHouseMenu";
 
 // There is a weird x axis scroll even when there is no content pushing width.
 // This came up when height="100vh" was changed to "100%"
 
 const Home = () => {
-  interface PartsHouseProps { 
+  interface PartsHouseProps {
     id: number;
     name: string;
     userId: number;
   }
 
   const { userData } = useUser();
-  const [ currentPartsHouse, setPartsHouse ] = useState<undefined | PartsHouseProps>(userData.partsHouse[0]);
+  const [currentPartsHouse, setPartsHouse] = useState<PartsHouseProps>({
+    id: null,
+    name: null,
+    userId: null,
+  });
 
   const menuLists = [];
-
+  
   useEffect(() => {
+    
     if (userData) {
-      userData.partsHouse.map(ph => {
-        const handleClick = () => {
-          setPartsHouse(ph)
-        }
-        return menuLists.push(<MenuList onClick={handleClick}>{ph.name}</MenuList>)
-      })
+      
+      console.log("CurrentPH 1 - " + currentPartsHouse.name);
+      setPartsHouse(userData.partsHouse[0]);
     }
-  }, [userData])
-
-  // const menuList = [
-  //   userData.partsHouse.map(ph => {
-  //     return (
-  //       <MenuList>{ph.name}</MenuList>
-  //     )
-  //   })
-  // ]
-  console.log("MENULIST - " + `${userData !== undefined ? userData.partsHouse[0] : "nope"} `)
+  }, [userData]);
+  
+  console.log("CurrentPH 2 - " + currentPartsHouse.name);
+  console.log(
+    "MENULIST - " + `${userData ? menuLists : "nope"} `
+    );
+    
+    if (userData) {
+      userData.partsHouse.map((ph) => {
+        const handleClick = () => {
+          setPartsHouse(ph);
+        };
+        menuLists.push(<MenuList onClick={handleClick} key={ph.id}>{ph.name}</MenuList>)
+      });
+  }
 
   return (
     <Flex bg="gray.200" height="100vh">
@@ -56,10 +64,13 @@ const Home = () => {
         bg="gray.200"
         overflow="auto"
       >
-        <Box>
-          {/* {tempParthouseDisplay} */}
-        </Box>
-        {userData ? <Text>You are logged in as {userData.user.email}</Text> : "" }
+        <Box>{/* {tempParthouseDisplay} */}</Box>
+        {userData ? (
+          <Text>You are logged in as {userData.user.email}</Text>
+        ) : (
+          ""
+        )}
+        <PartsHouseMenu partsHouse={currentPartsHouse} menuLists={menuLists} />
         <Lib_Input
           placeholder="Psuedo Record Search"
           size="lg"
