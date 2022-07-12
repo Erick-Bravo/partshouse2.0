@@ -8,6 +8,7 @@ import { useUser } from "../lib/hooks";
 import prisma from "../lib/prisma";
 import { desktop, mobile } from "../lib/styles";
 import PartsHouseMenu from "../components/MenuDropDowns/PartsHouseMenu";
+import { validateToken } from "../lib/auth";
 
 // There is a weird x axis scroll even when there is no content pushing width.
 // This came up when height="100vh" was changed to "100%"
@@ -98,12 +99,14 @@ const Home = () => {
   );
 };
 
-// export const useServerSideProbs = () => {
-//   const recordsWithPart = prisma.record.findMany({
-//     where: {
-//       partsHouseId: 
-//     }
-//   })
-// }
+export const useServerSideProps = async ({ query, req }) => {
+
+  const { id } = validateToken(req.cookies.PH_ACCESS_TOKEN)
+  const [ partsHouse ] = await prisma.partshouse.findMany({
+    where: {
+       userId: id
+    }
+  })
+}
 
 export default Home;

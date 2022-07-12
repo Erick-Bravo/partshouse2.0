@@ -12,8 +12,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       email,
     },
     include: {
-      partsHouse: true
-    }
+      partsHouse: true,
+    },
   });
 
   if (user && bcrypt.compareSync(password, user.password)) {
@@ -31,18 +31,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.setHeader(
       "Set-Cookie",
-      cookie.serialize("TRAX_ACCESS_TOKEN", token, {
+      cookie.serialize("PH_ACCESS_TOKEN", token, {
         httpOnly: true,
         maxAge: 8 * 60 * 60,
         path: "/",
         sameSite: "lax",
-        secure: process.env.NODE_ENV === "production", 
+        secure: process.env.NODE_ENV === "production",
       })
     );
 
-    res.json(user)
+    res.json(user);
   } else {
-      res.status(401)
-      res.json({ error: "Email or Password is Wrong" })
+    res.status(401);
+    res.json({ error: "Email or Password is Wrong" });
   }
 };
