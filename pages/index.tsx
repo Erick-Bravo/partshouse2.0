@@ -28,9 +28,10 @@ const Home = () => {
 
   const menuLists = [];
 
+  //Sets PartsHouse and Create a MenuList for each partshouse
+
   useEffect(() => {
     if (userData) {
-      console.log("CurrentPH 1 - " + currentPartsHouse.name);
       setPartsHouse(userData.partsHouse[0]);
     }
   }, [userData]);
@@ -49,6 +50,8 @@ const Home = () => {
       );
     });
   }
+
+  //Set list of records of selected 
 
   return (
     <Flex bg="gray.200" height="100vh">
@@ -98,7 +101,7 @@ const Home = () => {
 // export const useServerSideProbs = () => {
 //   const recordsWithPart = prisma.record.findMany({
 //     where: {
-//       partsHouseId: //current partshouse
+//       partsHouseId: 
 //     }
 //   })
 // }
