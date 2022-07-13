@@ -21,12 +21,9 @@ const Home = ({ partshouseData }) => {
     userId: number;
   }
 
-  partshouseData.map(ph => {
-    return console.log(prettyjson.render(ph))
-  })
-
-
-
+  // console.log("ServerSide - " + JSON.stringify(partshouseData));
+  // console.log("ServerSide - " + JSON.stringify(partshouseData[1]));
+  
   const { userData } = useUser();
   const [currentPartsHouse, setPartsHouse] = useState<PartsHouseProps>({
     id: null,
@@ -34,30 +31,32 @@ const Home = ({ partshouseData }) => {
     userId: null,
   });
 
+  const [currentRecords, setRecords] = useState(); 
+  
   const menuLists = [];
-
-  //Sets PartsHouse and Create a MenuList for each partshouse
-
+  
+  //Sets PartsHouse and Records then Create a MenuList for each partshouse
+  
   useEffect(() => {
-    if (userData) {
-      setPartsHouse(userData.partsHouse[0]);
+    if (partshouseData) {
+      setPartsHouse(partshouseData[partshouseData.length - 1]);
+      setRecords(partshouseData[partshouseData.length - 1].records);
     }
-  }, [userData]);
+  }, [partshouseData]);
 
-  if (userData) {
-    userData.partsHouse.map((ph) => {
+  if (partshouseData) {
+    partshouseData.map((ph) => {
       const handleClick = () => {
         setPartsHouse(ph);
+        setRecords(ph.records);
       };
-      menuLists.push(
+      menuLists.unshift(
         <MenuList onClick={handleClick} key={ph.id}>
           {ph.name}
         </MenuList>
       );
     });
   }
-
-  //Set list of records of selected
 
   return (
     <Flex bg="gray.200" height="100vh">
