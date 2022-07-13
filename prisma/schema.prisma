@@ -13,33 +13,31 @@ datasource db {
 
 model User {
   id            Int        @id @default(autoincrement())
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-
   email         String     @unique
   password      String
 
   partsHouse    Partshouse[]                 // has many PARTSHOUSES
-  recordNotifications Record_Notification[]  // has many NOTIFICATIONS
-  partNotifications Part_Notification[]      // has many NOTIFICATIONS
+  recordNotifications RecordNotification[]   // has many RecordNOTIFICATIONS
+  partNotifications PartNotification[]       // has many PartNOTIFICATIONS
+
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
 model Partshouse {
   id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-
   name      String
+  userId    Int                              // belongs to one USER
 
   user      User       @relation(fields: [userId], references: [id])
-  userId    Int                             // belongs to one USER
+  records   Record[]                         // has many RECORDS
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Record {
   id                     Int             @id @default(autoincrement())
-  createdAt              DateTime        @default(now())
-  updatedAt              DateTime        @updatedAt
-
   type                   String?
   name                   String   
   brand                  String?
@@ -52,18 +50,19 @@ model Record {
   purchaseUrl            String?
   warrantyInfo           String?
   description            String?
+  partsHouseId           Int                    // belongs to one PARTSHOUSE
 
+  partsHouse             Partshouse       @relation(fields: [partsHouseId], references: [id])
   parts                  Part[]                 // has many PARTS
   recordLog              RecordLog[]            // has many RECORDLOGS
-  recordNotifications    Record_Notification[]  // has many NOTIFICATIONS
-  partsHouseId           Int                    // belongs to one PARTSHOUSE
+  recordNotifications    RecordNotification[]   // has many RECORDNOTIFICATIONS
+
+  createdAt              DateTime        @default(now())
+  updatedAt              DateTime        @updatedAt
 }
 
 model Part {
   id                  Int             @id @default(autoincrement())
-  createdAt           DateTime        @default(now())
-  updatedAt           DateTime        @updatedAt
-
   name                String
   brand               String
   cost                Int?
@@ -74,57 +73,60 @@ model Part {
   purchaseUrl         String?
   warrantyInfo        String?
   description         String?
-
-  partLog             PartLog[]               // has many PARTLOGS
-  partNotifications   Part_Notification[]     // has many NOTIFICATIONS
-  record              Record          @relation(fields: [recordId], references: [id])
   recordId            Int                     // belongs to one RECORD
+
+  record              Record          @relation(fields: [recordId], references: [id])
+  partLog             PartLog[]               // has many PARTLOGS
+  partNotifications   PartNotification[]      // has many PARTNOTIFICATIONS
+
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
 }
 
 model RecordLog {
   id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
   date      DateTime
   note      String?
+  recordId  Int                              // belongs to one RECORD
 
   record    Record    @relation(fields: [recordId], references: [id])
-  recordId  Int                              // belongs to one RECORD
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model PartLog {
   id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
   date      DateTime
   note      String?
+  partId    Int                               // belongs to one PART
 
   part      Part      @relation(fields: [partId], references: [id])
-  partId    Int                               // belongs to one PART
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
-model Record_Notification {
+model RecordNotification {
   id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-
   date      DateTime
   note      String
 
   users     User[]                 // belongs to many USERS
   records   Record[]               // belongs to many RECORDS
-}
 
-model Part_Notification {
-  id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+}
 
+model PartNotification {
+  id        Int        @id @default(autoincrement())
   date      DateTime
   note      String
 
   users     User[]                 // belongs to many USERS
   parts     Part[]                 // belongs to many PARTS
+  
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }

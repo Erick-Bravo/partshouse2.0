@@ -4,44 +4,59 @@ import { Button, Input, MenuList } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import RecordCard from "../components/RecordCard";
 import { Lib_Button, Lib_Input } from "../lib/lib_components";
-import { useUser, usePartshouse } from "../lib/hooks";
+import { useUser } from "../lib/hooks";
 import prisma from "../lib/prisma";
 import { desktop, mobile } from "../lib/styles";
+import PartsHouseMenu from "../components/MenuDropDowns/PartsHouseMenu";
+import { validateToken } from "../lib/auth";
+import prettyjson from "prettyjson";
 
 // There is a weird x axis scroll even when there is no content pushing width.
 // This came up when height="100vh" was changed to "100%"
 
-const Home = () => {
-  interface PartsHouseProps { 
+const Home = ({ partshouseData }) => {
+  interface PartsHouseProps {
     id: number;
     name: string;
     userId: number;
   }
 
+  // console.log("ServerSide - " + JSON.stringify(partshouseData));
+  // console.log("ServerSide - " + JSON.stringify(partshouseData[1]));
+  
   const { userData } = useUser();
-  const [ currentPartsHouse, setPartsHouse ] = useState<undefined | PartsHouseProps>(userData.partsHouse[0]);
+  const [currentPartsHouse, setPartsHouse] = useState<PartsHouseProps>({
+    id: null,
+    name: null,
+    userId: null,
+  });
 
+  const [currentRecords, setRecords] = useState([]); 
+  
   const menuLists = [];
-
+  
+  //Sets PartsHouse and Records then Create a MenuList for each partshouse
+  
   useEffect(() => {
-    if (userData) {
-      userData.partsHouse.map(ph => {
-        const handleClick = () => {
-          setPartsHouse(ph)
-        }
-        return menuLists.push(<MenuList onClick={handleClick}>{ph.name}</MenuList>)
-      })
+    if (partshouseData) {
+      setPartsHouse(partshouseData[partshouseData.length - 1]);
+      setRecords(partshouseData[partshouseData.length - 1].records);
     }
-  }, [userData])
+  }, [partshouseData]);
 
-  // const menuList = [
-  //   userData.partsHouse.map(ph => {
-  //     return (
-  //       <MenuList>{ph.name}</MenuList>
-  //     )
-  //   })
-  // ]
-  console.log("MENULIST - " + `${userData !== undefined ? userData.partsHouse[0] : "nope"} `)
+  if (partshouseData) {
+    partshouseData.map((ph) => {
+      const handleClick = () => {
+        setPartsHouse(ph);
+        setRecords(ph.records);
+      };
+      menuLists.unshift(
+        <MenuList onClick={handleClick} key={ph.id}>
+          {ph.name}
+        </MenuList>
+      );
+    });
+  }
 
   return (
     <Flex bg="gray.200" height="100vh">
@@ -56,10 +71,14 @@ const Home = () => {
         bg="gray.200"
         overflow="auto"
       >
-        <Box>
-          {/* {tempParthouseDisplay} */}
-        </Box>
-        {userData ? <Text>You are logged in as {userData.user.email}</Text> : "" }
+        {userData ? (
+          <Text>You are logged in as {userData.user.email}</Text>
+        ) : (
+          ""
+        )}
+
+        <PartsHouseMenu partsHouse={currentPartsHouse} menuLists={menuLists} />
+
         <Lib_Input
           placeholder="Psuedo Record Search"
           size="lg"
@@ -72,23 +91,43 @@ const Home = () => {
           w="280px"
           display={mobile}
         />
+
         <Flex marginBottom="10px">
           <Lib_Button icon={<SmallAddIcon />} text={"Add Record"} />
           <Lib_Button icon={<CalendarIcon />} text={"Calendar"} />
         </Flex>
-        <RecordCard />
-        <Box>{/* Why is this not overflowing */}</Box>
+
+        {currentRecords.map(rec => {
+          return (
+            <RecordCard record={rec} key={rec.id} />
+          )
+        })}
       </Flex>
     </Flex>
   );
 };
 
-// export const useServerSideProbs = () => {
-//   const recordsWithPart = prisma.record.findMany({
-//     where: {
-//       partsHouseId: //current partshouse
-//     }
-//   })
-// }
+export const getServerSideProps = async ({ query, req }) => {
+  //Note: query will be a string, so id needs to be converted into a number. You can do this with +
+  //example: id: +query.id
+
+  const { id } = validateToken(req.cookies.PH_ACCESS_TOKEN);
+  const partshouseData = await prisma.partshouse.findMany({
+    where: {
+      userId: id,
+    },
+    include: {
+      records: {
+        include: {
+          parts: true,
+        },
+      },
+    },
+  });
+
+  return {
+    props: { partshouseData },
+  };
+};
 
 export default Home;
