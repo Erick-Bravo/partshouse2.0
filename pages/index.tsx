@@ -9,16 +9,23 @@ import prisma from "../lib/prisma";
 import { desktop, mobile } from "../lib/styles";
 import PartsHouseMenu from "../components/MenuDropDowns/PartsHouseMenu";
 import { validateToken } from "../lib/auth";
+import prettyjson from "prettyjson";
 
 // There is a weird x axis scroll even when there is no content pushing width.
 // This came up when height="100vh" was changed to "100%"
 
-const Home = () => {
+const Home = ({ partshouseData }) => {
   interface PartsHouseProps {
     id: number;
     name: string;
     userId: number;
   }
+
+  partshouseData.map(ph => {
+    return console.log(prettyjson.render(ph))
+  })
+
+
 
   const { userData } = useUser();
   const [currentPartsHouse, setPartsHouse] = useState<PartsHouseProps>({
@@ -37,8 +44,6 @@ const Home = () => {
     }
   }, [userData]);
 
-  console.log("MENULIST - " + `${userData ? menuLists : "nope"} `);
-
   if (userData) {
     userData.partsHouse.map((ph) => {
       const handleClick = () => {
@@ -52,7 +57,7 @@ const Home = () => {
     });
   }
 
-  //Set list of records of selected 
+  //Set list of records of selected
 
   return (
     <Flex bg="gray.200" height="100vh">
@@ -99,14 +104,27 @@ const Home = () => {
   );
 };
 
-export const useServerSideProps = async ({ query, req }) => {
+export const getServerSideProps = async ({ query, req }) => {
+  //Note: query will be a string, so id needs to be converted into a number. You can do this with +
+  //example: id: +query.id
 
-  const { id } = validateToken(req.cookies.PH_ACCESS_TOKEN)
-  const [ partsHouse ] = await prisma.partshouse.findMany({
+  const { id } = validateToken(req.cookies.PH_ACCESS_TOKEN);
+  const partshouseData = await prisma.partshouse.findMany({
     where: {
-       userId: id
-    }
-  })
-}
+      userId: id,
+    },
+    include: {
+      records: {
+        include: {
+          parts: true,
+        },
+      },
+    },
+  });
+
+  return {
+    props: { partshouseData },
+  };
+};
 
 export default Home;
