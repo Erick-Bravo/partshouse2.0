@@ -10,7 +10,7 @@ import {
 
 import { FaBrain } from "react-icons/fa";
 
-const RecordCard = () => {
+const RecordCard = ({ record }) => {
   return (
     <>
       <Flex>
@@ -19,8 +19,8 @@ const RecordCard = () => {
         </Flex>
 
         <Flex
-            border="1px"
-            borderColor="gray.300"
+          border="1px"
+          borderColor="gray.300"
           borderRadius="5px"
           m="20px"
           minWidth="480px"
@@ -31,17 +31,17 @@ const RecordCard = () => {
           //   align="center"
           //   padding="10px"
         >
-          <Accordion defaultIndex={[0]} allowMultiple minWidth="480px">
+          <Accordion allowToggle minWidth="480px">
             <AccordionItem>
               <h2>
                 <AccordionButton justifyContent="space-between">
-                  <Flex justifyContent="flex-end">Omega-3 Oil</Flex>
+                  <Flex justifyContent="flex-end">{record.name}</Flex>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
 
               <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur
+                {record.brand}
               </AccordionPanel>
             </AccordionItem>
           </Accordion>

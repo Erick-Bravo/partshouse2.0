@@ -31,7 +31,7 @@ const Home = ({ partshouseData }) => {
     userId: null,
   });
 
-  const [currentRecords, setRecords] = useState(); 
+  const [currentRecords, setRecords] = useState([]); 
   
   const menuLists = [];
   
@@ -97,7 +97,11 @@ const Home = ({ partshouseData }) => {
           <Lib_Button icon={<CalendarIcon />} text={"Calendar"} />
         </Flex>
 
-        <RecordCard />
+        {currentRecords.map(rec => {
+          return (
+            <RecordCard record={rec} key={rec.id} />
+          )
+        })}
       </Flex>
     </Flex>
   );
