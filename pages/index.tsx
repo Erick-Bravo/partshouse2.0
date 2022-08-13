@@ -107,9 +107,7 @@ const Home = ({ partshouseData }) => {
   );
 };
 
-export const getServerSideProps = async ({ query, req }) => {
-  //Note: query will be a string, so id needs to be converted into a number. You can do this with +
-  //example: id: +query.id
+export const getServerSideProps = async ({ req }) => {
 
   const { id } = validateToken(req.cookies.PH_ACCESS_TOKEN);
   const partshouseData = await prisma.partshouse.findMany({
