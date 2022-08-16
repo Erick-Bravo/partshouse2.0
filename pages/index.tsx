@@ -10,6 +10,7 @@ import { desktop, mobile } from "../lib/styles";
 import PartsHouseMenu from "../components/MenuDropDowns/PartsHouseMenu";
 import { validateToken } from "../lib/auth";
 import prettyjson from "prettyjson";
+import NavBar from "../components/NavBar/NavBar";
 
 // There is a weird x axis scroll even when there is no content pushing width.
 // This came up when height="100vh" was changed to "100%"
@@ -23,7 +24,7 @@ const Home = ({ partshouseData }) => {
 
   // console.log("ServerSide - " + JSON.stringify(partshouseData));
   // console.log("ServerSide - " + JSON.stringify(partshouseData[1]));
-  
+
   const { userData } = useUser();
   const [currentPartsHouse, setPartsHouse] = useState<PartsHouseProps>({
     id: null,
@@ -31,12 +32,12 @@ const Home = ({ partshouseData }) => {
     userId: null,
   });
 
-  const [currentRecords, setRecords] = useState([]); 
-  
+  const [currentRecords, setRecords] = useState([]);
+
   const menuLists = [];
-  
+
   //Sets PartsHouse and Records then Create a MenuList for each partshouse
-  
+
   useEffect(() => {
     if (partshouseData) {
       setPartsHouse(partshouseData[partshouseData.length - 1]);
@@ -64,13 +65,16 @@ const Home = ({ partshouseData }) => {
         height="100%"
         width="100%"
         justify="center"
-        pt="150px"
+        pt="0"
         flexDir="column"
         align="center"
         justifyContent="flex-start"
         bg="gray.200"
         overflow="auto"
+        overflowX="hidden"
+        pos="absolute"
       >
+        <NavBar />
         {userData ? (
           <Text>You are logged in as {userData.user.email}</Text>
         ) : (
@@ -97,18 +101,17 @@ const Home = ({ partshouseData }) => {
           <Lib_Button icon={<CalendarIcon />} text={"Calendar"} />
         </Flex>
 
-        {currentRecords.map(rec => {
-          return (
-            <RecordCard record={rec} key={rec.id} />
-          )
-        })}
+        <Box pos="relative">
+          {currentRecords.map((rec) => {
+            return <RecordCard record={rec} key={rec.id} />;
+          })}
+        </Box>
       </Flex>
     </Flex>
   );
 };
 
 export const getServerSideProps = async ({ req }) => {
-
   const { id } = validateToken(req.cookies.PH_ACCESS_TOKEN);
   const partshouseData = await prisma.partshouse.findMany({
     where: {
