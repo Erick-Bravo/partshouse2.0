@@ -21,11 +21,11 @@ const RecordCard = ({ record }) => {
         <Flex
           border="1px"
           borderColor="gray.300"
-          borderRadius="5px"
+          borderRadius="10px"
           m="20px"
           minWidth="480px"
           //   width="500px"
-          //   height="140px"
+            // height="80px"
           bg="white"
           //   justifyContent="center"
           //   align="center"

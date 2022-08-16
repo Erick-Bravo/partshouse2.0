@@ -17,12 +17,12 @@ const NavBar = () => {
     <>
       {/* Main */}
       <Flex
-        pos="absolute"
         top="0"
         align="center"
         w="100vw"
         boxShadow="lg"
         bg="white"
+        mb="25px"
         justifyContent="space-between"
       >
         <Flex px="10px">
