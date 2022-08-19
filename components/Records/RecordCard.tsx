@@ -7,15 +7,17 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
-
 import { FaBrain } from "react-icons/fa";
+import IconFormatter from "./IconFormatter";
+
+
 
 const RecordCard = ({ record }) => {
   return (
     <>
       <Flex>
         <Flex align="center">
-          <FaBrain />
+          <IconFormatter icon={record.icon} />
         </Flex>
 
         <Flex
