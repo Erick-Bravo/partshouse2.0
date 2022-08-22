@@ -2,7 +2,7 @@ import { CalendarIcon, PhoneIcon, SmallAddIcon } from "@chakra-ui/icons";
 import { Box, Center, Flex, Text } from "@chakra-ui/layout";
 import { Button, Input, MenuList } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import RecordCard from "../components/RecordCard";
+import RecordCard from "../components/Records/RecordCard";
 import { Lib_Button, Lib_Input } from "../lib/lib_components";
 import { useUser } from "../lib/hooks";
 import prisma from "../lib/prisma";

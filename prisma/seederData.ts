@@ -95,8 +95,8 @@ export const recordData: {
   {
     id: 4,
     type: recordType.appliances,
-    icon: "washing machine",
-    name: "PC",
+    icon: "laptop",
+    name: "Latop",
     brand: "",
     partsHouseId: 1,
     parts: [
@@ -139,7 +139,7 @@ export const recordData: {
   {
     id: 6,
     type: recordType.tools,
-    icon: "tool",
+    icon: "saw",
     name: "Table Saw",
     brand: "Rigid",
     partsHouseId: 1,
@@ -232,7 +232,7 @@ export const recordData: {
     {
       id: 10,
       type: recordType.equipment,
-      icon: "AC",
+      icon: "home",
       name: "Air Conditioning",
       brand: "Carrier",
       partsHouseId: 2,
@@ -241,7 +241,7 @@ export const recordData: {
     {
       id: 11,
       type: recordType.food,
-      icon: "Coffee",
+      icon: "coffee",
       name: "Coffee Pods",
       brand: "Starbucks",
       partsHouseId: 2,
